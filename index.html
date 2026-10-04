@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark" data-lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoang Phong (pill) — Portfolio</title>
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === THEME VARIABLES (ĐEN TÍM SANG TRỌNG) === */
+        :root[data-theme="dark"] {
+            --bg-body: #09070f;
+            --bg-card: #130f21;
+            --text-main: #f3f0ff;
+            --text-muted: #a29db5;
+            --accent: #a855f7;
+            --accent-glow: rgba(168, 85, 247, 0.25);
+            --border: #231c38;
+            --nav-bg: rgba(9, 7, 15, 0.75);
+        }
+
+        :root[data-theme="light"] {
+            --bg-body: #f8f6fc;
+            --bg-card: #ffffff;
+            --text-main: #130f21;
+            --text-muted: #6b6580;
+            --accent: #8b5cf6;
+            --accent-glow: rgba(139, 92, 246, 0.15);
+            --border: #e6e1f3;
+            --nav-bg: rgba(248, 246, 252, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        html, body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* === HEADER & CONTROLS === */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .btn-control {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-control:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* === PAGING DOTS (SIDE NAVIGATION) === */
+        .side-paging {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 90;
+        }
+
+        .page-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-dot.active {
+            background-color: var(--accent);
+            height: 28px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* === SECTIONS CONTAINER (MINIMAL LAYOUT) === */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        /* === HERO SECTION === */
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--text-main), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            transition: transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+        }
+
+        /* === EXPERTISE & PROJECTS === */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .card i {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tag-list {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        /* === CONTACT === */
+        .contact-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .social-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.5rem; }
+            .hero h1 { font-size: 2.4rem; }
+            .side-paging { display: none; }
+            .container { padding: 0 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="#hero" class="logo">pillizabezt<span>.</span></a>
+        <div class="controls">
+            <!-- Language Toggle -->
+            <button class="btn-control" id="lang-btn" onclick="toggleLanguage()">
+                <i class="fa-solid fa-globe"></i>
+                <span id="lang-text">EN</span>
+            </button>
+            <!-- Dark / Light Mode Toggle -->
+            <button class="btn-control" id="theme-btn" onclick="toggleTheme()">
+                <i class="fa-solid fa-moon" id="theme-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Side Paging Indicator -->
+    <div class="side-paging">
+        <div class="page-dot active" onclick="scrollToSection(0)"></div>
+        <div class="page-dot" onclick="scrollToSection(1)"></div>
+        <div class="page-dot" onclick="scrollToSection(2)"></div>
+        <div class="page-dot" onclick="scrollToSection(3)"></div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container">
+        
+        <!-- Section 1: Hero -->
+        <section id="hero" class="hero">
+            <span class="section-tag" data-vi="GIỚI THIỆU" data-en="INTRODUCTION">GIỚI THIỆU</span>
+            <h1>Hoang Phong<br><span>(pillizabezt)</span></h1>
+            <div class="hero-subtitle">Mathematic Game Designer | Software Outsourcing | Gamble Game Provider</div>
+            <p class="hero-desc" data-vi="Chuyên gia tối ưu mô hình toán học cho Game, thiết kế hệ thống Gamble Game và cung cấp dịch vụ gia công phần mềm cao cấp. Tập trung vào tính chính xác, hiệu năng và tự động hóa toàn diện." data-en="Specializing in Game Mathematics Optimization, Gamble Game Systems, and High-Performance Software Outsourcing. Focused on mathematical precision and complete system automation.">
+                Chuyên gia tối ưu mô hình toán học cho Game, thiết kế hệ thống Gamble Game và cung cấp dịch vụ gia công phần mềm cao cấp. Tập trung vào tính chính xác, hiệu năng và tự động hóa toàn diện.
+            </p>
+            <div>
+                <a href="#contact" class="btn-primary">
+                    <span data-vi="Liên Hệ Ngay" data-en="Get In Touch">Liên Hệ Ngay</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 2: Chuyên môn -->
+        <section id="skills">
+            <span class="section-tag" data-vi="NĂNG LỰC CỐT LÕI" data-en="CORE COMPETENCIES">NĂNG LỰC CỐT LÕI</span>
+            <h2 class="section-title" data-vi="Lĩnh Vực Chuyên Môn" data-en="Fields of Expertise">Lĩnh Vực Chuyên Môn</h2>
+            <div class="grid-cards">
+                <div class="card">
+                    <i class="fa-solid fa-calculator"></i>
+                    <h3>Game Math & Logic</h3>
+                    <p data-vi="Thiết kế và mô phỏng xác suất toán học, cân bằng RTP, độ biến động (Volatility) cho các dòng Game Casino & Gamble." data-en="Designing probability models, balancing RTP, and managing volatility for Gamble & Casino games.">
+                        Thiết kế và mô phỏng xác suất toán học, cân bằng RTP, độ biến động (Volatility) cho các dòng Game Casino & Gamble.
+                    </p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-dice-five"></i>
+                    <h3>Gamble Game Provider</h3>
+                    <p data-vi="Cung cấp giải pháp toàn diện cho hệ thống Gamble Game, đảm bảo tính bảo mật và vận hành ổn định." data-en="End-to-end solutions for Gamble Game systems with high security and seamless operation.">
+                        Cung cấp giải pháp toàn diện cho hệ thống Gamble Game, đảm bảo tính bảo mật và vận hành ổn định.
+                    </p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>Software Outsourcing</h3>
+                    <p data-vi="Gia công phần mềm theo yêu cầu, xây dựng công cụ tùy biến và tối ưu hóa hệ thống cho doanh nghiệp." data-en="Custom software outsourcing, tailor-made tools, and business system optimization.">
+                        Gia công phần mềm theo yêu cầu, xây dựng công cụ tùy biến và tối ưu hóa hệ thống cho doanh nghiệp.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Dự án -->
+        <section id="projects">
+            <span class="section-tag" data-vi="SẢN PHẨM" data-en="PORTFOLIO">SẢN PHẨM</span>
+            <h2 class="section-title" data-vi="Dự Án Nổi Bật" data-en="Featured Projects">Dự Án Nổi Bật</h2>
+            <div class="grid-cards">
+                <div class="card">
+                    <i class="fa-solid fa-gears"></i>
+                    <h3>CAT-AutoTool</h3>
+                    <p data-vi="Hệ thống tự động hóa quy trình vận hành, hỗ trợ quản lý và tương tác đa nền tảng giúp tối ưu hóa hiệu suất làm việc." data-en="An automated workflow system supporting cross-platform management and operations to boost productivity.">
+                        Hệ thống tự động hóa quy trình vận hành, hỗ trợ quản lý và tương tác đa nền tảng giúp tối ưu hóa hiệu suất làm việc.
+                    </p>
+                    <div class="tag-list">
+                        <span class="tag">Automation</span>
+                        <span class="tag">System Tool</span>
+                        <span class="tag">Telegram API</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Liên hệ -->
+        <section id="contact">
+            <div class="contact-box">
+                <span class="section-tag" data-vi="KẾT NỐI" data-en="CONNECT">KẾT NỐI</span>
+                <h2 class="section-title" style="margin-bottom: 1rem;" data-vi="Bắt Đầu Hợp Tác" data-en="Let's Work Together">Bắt Đầu Hợp Tác</h2>
+                <p style="color: var(--text-muted);" data-vi="Sẵn sàng thảo luận về Game Math, thiết kế hệ thống Gamble hoặc dự án Outsourcing." data-en="Available for Game Math architecture, Gamble Game systems, and Outsourcing inquiries.">
+                    Sẵn sàng thảo luận về Game Math, thiết kế hệ thống Gamble hoặc dự án Outsourcing.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:phogdh228@gmail.com" class="social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="https://t.me/pillizabezt" target="_blank" class="social-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- === JAVASCRIPT === -->
+    <script>
+        // 1. CHUYỂN ĐỔI NGÔN NGỮ (VI / EN)
+        let currentLang = 'vi';
+        function toggleLanguage() {
+            currentLang = currentLang === 'vi' ? 'en' : 'vi';
+            document.documentElement.setAttribute('data-lang', currentLang);
+            document.getElementById('lang-text').innerText = currentLang === 'vi' ? 'EN' : 'VI';
+
+            document.querySelectorAll('[data-vi]').forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        // 2. CHUYỂN ĐỔI THEME (DARK / LIGHT MODE)
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            icon.className = newTheme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+        }
+
+        // 3. XỬ LÝ PAGING & SCROLL INDICATOR
+        const sections = document.querySelectorAll('section');
+        const dots = document.querySelectorAll('.page-dot');
+
+        function scrollToSection(index) {
+            sections[index].scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', () => {
+            let current = 0;
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 300) {
+                    current = index;
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === current);
+            });
+        });
+    </script>
+</body>
+</html>
